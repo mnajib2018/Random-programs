@@ -1,5 +1,4 @@
 # Enter your code here. Read input from STDIN. Print output to STDOUT
-# Enter your code here. Read input from STDIN. Print output to STDOUT
 import fileinput
 import sys
 
@@ -63,12 +62,13 @@ def main():
             continue
         if(date in results_map):
             if(engagement_type in results_map[date]):
-                count = count + int(results_map[date][engagement_type])
-                current_map ={engagement_type:count}
+                count = count + results_map[date][engagement_type]
+                current_map = {engagement_type:count}
             results_map[date].update(current_map)
         else:
             results_map[date] = current_map
         #print (date, results_map)
-        
+            #print(results_map)
+    #print("here")
     output(results_map)
 main()
