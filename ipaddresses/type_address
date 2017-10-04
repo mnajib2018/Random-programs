@@ -1,0 +1,67 @@
+# Complete the function below.
+def RepresentsInt(s):
+    try: 
+        int(s)
+        return True
+    except ValueError:
+        return False
+
+    
+def hasLeadingZeros(item):
+    if(item[0] == '0'):
+        for i in range(1,len(item)):
+            if(item[i] != '0'):
+                return True
+        return False
+    
+
+
+def isIPv4(given_address):
+    address = given_address.split(".")
+    if(len(address) != 4):
+        return False
+    if(int(given_address[0])==0):
+        return False
+    for item in address:
+        if(hasLeadingZeros(item)):
+            return False
+        if(not RepresentsInt(item)):
+            if(item == ''):
+                continue
+            return False
+        if(int(item) > 255 and int(item) < 0):
+            return False
+    return True
+
+def RepresentsHexInt(s):
+    try: 
+        int(s,16)
+        return True
+    except ValueError:
+        return False
+
+
+def isIPv6(given_address):
+    address = given_address.split(":")
+    if(len(address) != 8):
+        return False
+    for item in address:
+        if(not RepresentsHexInt(item)):
+            if(item == ''):
+                continue
+            return False
+        if(int(item,16) > 65535 and int(item,16) < 0):
+            return False
+    return True
+    
+def  checkIP(ip):
+    #print(ip)
+    for i in range(0,len(ip)):
+        if(not isIPv4(ip[i]) and not isIPv6(ip[i])):
+            ip[i] = "Neither"
+            continue
+        elif(isIPv4(ip[i])):
+            ip[i] = "IPv4"
+        elif(isIPv6(ip[i])):
+            ip[i] = "IPv6"
+    return ip  
