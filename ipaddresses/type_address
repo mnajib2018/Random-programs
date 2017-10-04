@@ -14,8 +14,6 @@ def hasLeadingZeros(item):
                 return True
         return False
     
-
-
 def isIPv4(given_address):
     address = given_address.split(".")
     if(len(address) != 4):
@@ -29,7 +27,7 @@ def isIPv4(given_address):
             if(item == ''):
                 continue
             return False
-        if(int(item) > 255 and int(item) < 0):
+        if(int(item) > 255 or int(item) < 0):
             return False
     return True
 
@@ -40,9 +38,34 @@ def RepresentsHexInt(s):
     except ValueError:
         return False
 
-
+def twoColons(given_address):
+    consecutive_count = 0
+    found = 0
+    split_address = given_address.split(":")
+    if(given_address[0] == ':' and given_address[1] != ':'):
+        return False
+    length_address = len(given_address)
+    if(given_address[length_address-1] == ':' 
+        and given_address(length_address-2) != ':'):
+        return False
+        
+    for item in given_address:
+        if(item == ':'):
+            consecutive_count += 1
+            if(consecutive_count >= 2):
+                found += 1
+        else:
+            consecutive_count = 0
+    if(found != 1):
+        return False
+    
+    return True
+    
+    
 def isIPv6(given_address):
     address = given_address.split(":")
+    if(len(address) < 8 and not twoColons(given_address)):
+        return False
     if(len(address) != 8):
         return False
     for item in address:
@@ -50,7 +73,7 @@ def isIPv6(given_address):
             if(item == ''):
                 continue
             return False
-        if(int(item,16) > 65535 and int(item,16) < 0):
+        if(int(item,16) > 65535 or int(item,16) < 0):
             return False
     return True
     
